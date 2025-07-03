@@ -23,6 +23,8 @@ private:
 	static std::list<sf::Keyboard::Key> heldKeys;
 	static std::list<sf::Keyboard::Key> upKeys;
 	static std::list<sf::Mouse::Button> buttonDownKeys;
+	static std::list<sf::Mouse::Button> buttonUpKeys;
+	static std::list<sf::Mouse::Button> buttonHeldKeys;
 
 	static std::unordered_map<Axis, AxisInfo> axisInfoMap;
 
@@ -49,7 +51,7 @@ public:
 
 	static bool Contains(const std::list<sf::Mouse::Button>& list, sf::Mouse::Button key);
 
-	void Remove(std::list<sf::Mouse::Button>& list, sf::Mouse::Button key);
+	static void Remove(std::list<sf::Mouse::Button>& list, sf::Mouse::Button key);
 
 	static sf::Vector2i GetMousePosition();
 

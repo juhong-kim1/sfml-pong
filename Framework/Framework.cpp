@@ -7,6 +7,8 @@ void Framework::Init(int w, int h, const std::string& t)
 
     // texIds, fontIds, soundIds
 
+    sf::RenderWindow* window = nullptr;
+
 	TEXTURE_MGR.Load(texIds);
 	FONT_MGR.Load(fontIds);
 	SOUNDBUFFER_MGR.Load(soundIds);

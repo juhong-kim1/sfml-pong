@@ -28,7 +28,6 @@ void SceneDev1::Init()
 
 void SceneDev1::Update(float dt)
 {
-	std::cout << sf::Mouse::Button::Left << std::endl;
 
 	if (InputMgr::GetKeyDown(sf::Keyboard::Space))
 	{
@@ -44,8 +43,16 @@ void SceneDev1::Update(float dt)
 	}
 	if (InputMgr::GetMouseButtonDown(sf::Mouse::Button::Left))
 	{
-		testGo->sortingOrder = 1;
+		std::cout << "마우스 왼쪽 키 입력" << std::endl;
 	}
+	if (InputMgr::GetMouseButtonDown(sf::Mouse::Button::Right))
+	{
+		std::cout << "마우스 오른쪽 키 입력" << std::endl;
+	}
+
+	sf::Vector2i mousePos = InputMgr::GetMousePosition();
+	std::cout  << mousePos.x << ", " << mousePos.y << std::endl;
+
 
 	sf::Vector2f dir;
 	dir.x = InputMgr::GetAxisRaw(Axis::Horizontal);

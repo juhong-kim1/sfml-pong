@@ -5,6 +5,8 @@ std::list<sf::Keyboard::Key> InputMgr::downKeys;
 std::list<sf::Keyboard::Key> InputMgr::heldKeys;
 std::list<sf::Keyboard::Key> InputMgr::upKeys;
 std::list<sf::Mouse::Button> InputMgr::buttonDownKeys;
+std::list<sf::Mouse::Button> InputMgr::buttonHeldKeys;
+std::list<sf::Mouse::Button> InputMgr::buttonUpKeys;
 std::unordered_map<Axis, AxisInfo> InputMgr::axisInfoMap;
 
 void InputMgr::Init()
@@ -33,6 +35,8 @@ void InputMgr::Clear()
 {
 	downKeys.clear();
 	upKeys.clear();
+	buttonDownKeys.clear();
+	buttonUpKeys.clear();
 }
 
 void InputMgr::UpdateEvent(const sf::Event& ev) 
@@ -45,17 +49,26 @@ void InputMgr::UpdateEvent(const sf::Event& ev)
 			downKeys.push_back(ev.key.code);
 			heldKeys.push_back(ev.key.code);
 		}
-		if (!Contains(buttonDownKeys, ev.key.code))
-		{
-			downKeys.push_back(ev.key.code);
-			heldKeys.push_back(ev.key.code);
-		}
 		break;
 	case sf::Event::KeyReleased:
 		Remove(heldKeys, ev.key.code);
 		upKeys.push_back(ev.key.code);
 		break;
+
+	case sf::Event::MouseButtonPressed:
+		if (!Contains(buttonHeldKeys, ev.mouseButton.button))
+		{
+			buttonDownKeys.push_back(ev.mouseButton.button);
+			buttonHeldKeys.push_back(ev.mouseButton.button);
+		}
+		break;
+
+	case sf::Event::MouseButtonReleased:
+		Remove(buttonHeldKeys, ev.mouseButton.button);
+		buttonUpKeys.push_back(ev.mouseButton.button);
+		break;
 	}
+	
 }
 
 void InputMgr::Update(float dt) 
@@ -124,17 +137,17 @@ float InputMgr::GetAxis(Axis axis)
 
 bool InputMgr::GetMouseButtonDown(sf::Mouse::Button key)
 {
-	return true;
+	return Contains(buttonDownKeys, key);
 }
 
 bool InputMgr::GetMouseButtonUp(sf::Mouse::Button key)
 {
-	return true;
+	return Contains(buttonUpKeys, key);
 }
 
 bool InputMgr::GetMouseButton(sf::Mouse::Button key)
 {
-	return true;
+	return Contains(buttonHeldKeys, key);
 }
 
 bool InputMgr::Contains(const std::list<sf::Mouse::Button>& list, sf::Mouse::Button key)
@@ -149,6 +162,6 @@ void InputMgr::Remove(std::list<sf::Mouse::Button>& list, sf::Mouse::Button key)
 
 sf::Vector2i InputMgr::GetMousePosition()
 {
-	return sf::Vector2i();
+	return sf::Mouse::getPosition();
 }
 
