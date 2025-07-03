@@ -24,3 +24,8 @@ enum class Sides
 	Right,
 	None,
 };
+
+enum class sortingLayers
+{
+	Default,
+};

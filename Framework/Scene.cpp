@@ -53,6 +53,10 @@ void Scene::Update(float dt)
 
 void Scene::Draw(sf::RenderWindow& window)
 {
+
+
+
+
 	for (auto obj : gameObjects)
 	{
 		obj->Draw(window);
