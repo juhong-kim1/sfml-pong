@@ -24,6 +24,8 @@ private:
 	static std::list<sf::Keyboard::Key> heldKeys;
 	static std::list<sf::Keyboard::Key> upKeys;
 
+
+
 	static std::unordered_map<Axis, AxisInfo> axisInfoMap;
 
 
@@ -44,5 +46,14 @@ public:
 
 	static float GetAxisRaw(Axis axis);   // -1 0 1 바로 바뀌는 속도 구현
 	static float GetAxis(Axis axis);  // 천천히 바뀌는 속도 구현
+
+	static bool GetMouseButtonDown(sf::Mouse::Button key);
+	static bool GetMouseButtonUp(sf::Mouse::Button key);
+	static bool GetMouseButton(sf::Mouse::Button key);
+
+
+	static sf::Vector2i GetMousePosition();
+
 };
+
 

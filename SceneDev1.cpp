@@ -40,6 +40,10 @@ void SceneDev1::Update(float dt)
 	{
 		testGo->sortingOrder = -1;
 	}
+	if (InputMgr::GetMouseButtonDown(sf::Mouse::Button::Left))
+	{
+		SCENE_MGR.ChangeScene(SceneIds::Dev2);
+	}
 
 	sf::Vector2f dir;
 	dir.x = InputMgr::GetAxisRaw(Axis::Horizontal);

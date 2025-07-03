@@ -44,6 +44,7 @@ void InputMgr::UpdateEvent(const sf::Event& ev)
 			downKeys.push_back(ev.key.code);
 			heldKeys.push_back(ev.key.code);
 		}
+		GetMouseButtonDown(sf::Mouse::Button::Left);
 		break;
 	case sf::Event::KeyReleased:
 		Remove(heldKeys, ev.key.code);
@@ -54,7 +55,6 @@ void InputMgr::UpdateEvent(const sf::Event& ev)
 
 void InputMgr::Update(float dt) 
 {
-
 }
 
 bool InputMgr::GetKeyDown(sf::Keyboard::Key key)
@@ -115,5 +115,25 @@ float InputMgr::GetAxisRaw(Axis axis)
 float InputMgr::GetAxis(Axis axis)
 {
 	return 0.0f;
+}
+
+bool InputMgr::GetMouseButtonDown(sf::Mouse::Button key)
+{
+	return true;
+}
+
+bool InputMgr::GetMouseButtonUp(sf::Mouse::Button key)
+{
+	return true;
+}
+
+bool InputMgr::GetMouseButton(sf::Mouse::Button key)
+{
+	return true;
+}
+
+sf::Vector2i InputMgr::GetMousePosition()
+{
+	return sf::Vector2i();
 }
 
