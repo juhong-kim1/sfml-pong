@@ -4,6 +4,7 @@
 std::list<sf::Keyboard::Key> InputMgr::downKeys;
 std::list<sf::Keyboard::Key> InputMgr::heldKeys;
 std::list<sf::Keyboard::Key> InputMgr::upKeys;
+std::list<sf::Mouse::Button> InputMgr::buttonDownKeys;
 std::unordered_map<Axis, AxisInfo> InputMgr::axisInfoMap;
 
 void InputMgr::Init()
@@ -44,7 +45,11 @@ void InputMgr::UpdateEvent(const sf::Event& ev)
 			downKeys.push_back(ev.key.code);
 			heldKeys.push_back(ev.key.code);
 		}
-		GetMouseButtonDown(sf::Mouse::Button::Left);
+		if (!Contains(buttonDownKeys, ev.key.code))
+		{
+			downKeys.push_back(ev.key.code);
+			heldKeys.push_back(ev.key.code);
+		}
 		break;
 	case sf::Event::KeyReleased:
 		Remove(heldKeys, ev.key.code);
@@ -130,6 +135,16 @@ bool InputMgr::GetMouseButtonUp(sf::Mouse::Button key)
 bool InputMgr::GetMouseButton(sf::Mouse::Button key)
 {
 	return true;
+}
+
+bool InputMgr::Contains(const std::list<sf::Mouse::Button>& list, sf::Mouse::Button key)
+{
+	return std::find(list.begin(), list.end(), key) != list.end();
+}
+
+void InputMgr::Remove(std::list<sf::Mouse::Button>& list, sf::Mouse::Button key)
+{
+	list.remove(key);
 }
 
 sf::Vector2i InputMgr::GetMousePosition()

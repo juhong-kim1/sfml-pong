@@ -28,6 +28,8 @@ void SceneDev1::Init()
 
 void SceneDev1::Update(float dt)
 {
+	std::cout << sf::Mouse::Button::Left << std::endl;
+
 	if (InputMgr::GetKeyDown(sf::Keyboard::Space))
 	{
 		SCENE_MGR.ChangeScene(SceneIds::Dev2);
@@ -42,7 +44,7 @@ void SceneDev1::Update(float dt)
 	}
 	if (InputMgr::GetMouseButtonDown(sf::Mouse::Button::Left))
 	{
-		SCENE_MGR.ChangeScene(SceneIds::Dev2);
+		testGo->sortingOrder = 1;
 	}
 
 	sf::Vector2f dir;

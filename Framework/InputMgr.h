@@ -4,7 +4,6 @@ enum class Axis
 {
 	Horizontal,
 	Vertical,
-
 };
 
 struct AxisInfo
@@ -23,12 +22,9 @@ private:
 	static std::list<sf::Keyboard::Key> downKeys;
 	static std::list<sf::Keyboard::Key> heldKeys;
 	static std::list<sf::Keyboard::Key> upKeys;
-
-
+	static std::list<sf::Mouse::Button> buttonDownKeys;
 
 	static std::unordered_map<Axis, AxisInfo> axisInfoMap;
-
-
 
 public:
 	static void Init();
@@ -51,6 +47,9 @@ public:
 	static bool GetMouseButtonUp(sf::Mouse::Button key);
 	static bool GetMouseButton(sf::Mouse::Button key);
 
+	static bool Contains(const std::list<sf::Mouse::Button>& list, sf::Mouse::Button key);
+
+	void Remove(std::list<sf::Mouse::Button>& list, sf::Mouse::Button key);
 
 	static sf::Vector2i GetMousePosition();
 
