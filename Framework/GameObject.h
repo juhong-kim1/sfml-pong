@@ -15,7 +15,7 @@ protected:
 
 public:
 
-	sortingLayers sortingLayer = sortingLayers::Default;
+	SortingLayers sortingLayer = SortingLayers::Default;
 	int sortingOrder = 0;
 
 	GameObject(const std::string& name = "");
@@ -48,4 +48,3 @@ public:
 	virtual void Draw(sf::RenderWindow& window) = 0;
 
 };
-

@@ -1,6 +1,9 @@
 #pragma once
 
-// Defines.h
+enum class SortingLayers
+{
+	Default,
+};
 
 enum class Origins
 {
@@ -23,9 +26,4 @@ enum class Sides
 	Left,
 	Right,
 	None,
-};
-
-enum class sortingLayers
-{
-	Default,
 };
