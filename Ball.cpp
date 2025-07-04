@@ -57,15 +57,15 @@ void Ball::Release()
 void Ball::Reset()
 {
 	sf::FloatRect bounds = FRAMEWORK.GetWindowBounds();
-	SetPosition({ bounds.width * 0.5f, bounds.height -40.f });
+	SetPosition({ bounds.width * 0.5f, bounds.height -20.f });
 
 
 	float radius = shape.getRadius();
 	minX = bounds.left + radius;
 	maxX = (bounds.left + bounds.width) - radius;
 
-	minY = bounds.top - radius * 2;
-	maxY = bounds.top + bounds.height + radius * 3.f;
+	minY = bounds.top + radius * 2;
+	maxY = bounds.top + bounds.height + 200.f;
 
 	direction = { 0.f, 0.f };
 	speed = 0.f;

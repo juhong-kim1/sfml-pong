@@ -18,7 +18,6 @@ void SceneGame::Init()
 	ball = (Ball*)AddGameObject(new Ball("Bat"));
 	ball->SetBat(bat);
 	
-
 	Scene::Init();
 }
 
