@@ -50,8 +50,8 @@ void SceneDev1::Update(float dt)
 		std::cout << "마우스 오른쪽 키 입력" << std::endl;
 	}
 
-	sf::Vector2i mousePos = InputMgr::GetMousePosition();
-	std::cout  << mousePos.x << ", " << mousePos.y << std::endl;
+	/*sf::Vector2i mousePos = InputMgr::GetMousePosition();
+	std::cout  << mousePos.x << ", " << mousePos.y << std::endl;*/
 
 
 	sf::Vector2f dir;
