@@ -55,8 +55,14 @@ void SceneDev1::Update(float dt)
 
 
 	sf::Vector2f dir;
-	dir.x = InputMgr::GetAxisRaw(Axis::Horizontal);
-	dir.y = InputMgr::GetAxisRaw(Axis::Vertical);
+	dir.x = InputMgr::GetAxis(Axis::Horizontal);
+	dir.y = InputMgr::GetAxis(Axis::Vertical);
+
+	//std::cout << InputMgr::GetAxis(Axis::Horizontal) << std::endl;
+
+	/*float a = Utils::Lerp(1, 10, 0.5);
+	std::cout << a << std::endl;*/
+
 
 	sf::Vector2f pos = testGo->GetPosition();
 	pos += dir * 100.f * dt;

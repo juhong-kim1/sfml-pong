@@ -4,9 +4,7 @@
 std::list<int> InputMgr::downKeys;
 std::list<int> InputMgr::heldKeys;
 std::list<int> InputMgr::upKeys;
-//std::list<sf::Mouse::Button> InputMgr::buttonDownKeys;
-//std::list<sf::Mouse::Button> InputMgr::buttonHeldKeys;
-//std::list<sf::Mouse::Button> InputMgr::buttonUpKeys;
+
 std::unordered_map<Axis, AxisInfo> InputMgr::axisInfoMap;
 
 sf::Vector2i InputMgr::mousePosition;
@@ -37,8 +35,6 @@ void InputMgr::Clear()
 {
 	downKeys.clear();
 	upKeys.clear();
-	//buttonDownKeys.clear();
-	//buttonUpKeys.clear();
 }
 
 void InputMgr::UpdateEvent(const sf::Event& ev) 
@@ -78,6 +74,37 @@ void InputMgr::UpdateEvent(const sf::Event& ev)
 
 void InputMgr::Update(float dt) 
 {
+	mousePosition = sf::Mouse::getPosition(FRAMEWORK.GetWindow());
+
+	for (auto& pair : axisInfoMap)
+	{
+		AxisInfo& axisInfo = pair.second;
+		float raw = GetAxisRaw(axisInfo.axis);
+		float dir = raw;
+		if (raw == 0.f && axisInfo.value != 0.f)
+		{
+			dir = axisInfo.value > 0.f ? -1.f : 1.f;
+		}
+		axisInfo.value += dir * axisInfo.sensi * dt;
+		axisInfo.value = Utils::Clamp(axisInfo.value, -1.f, 1.f);
+		
+	/*	if (axisInfo.value < -1)
+		{
+			axisInfo.value = -1.f;
+		}
+		else if (axisInfo.value > 1)
+		{
+			axisInfo.value = 1.f;
+		}*/
+
+		float stopThreshold = std::abs(dir * axisInfo.sensi * dt);
+		if (raw == 0.f && std::abs(axisInfo.value) < stopThreshold)
+		{
+			axisInfo.value = 0.f;
+		}
+
+	}
+
 }
 
 bool InputMgr::GetKeyDown(sf::Keyboard::Key key)
@@ -132,14 +159,20 @@ float InputMgr::GetAxisRaw(Axis axis)
 		++it;
 	}
 
-	mousePosition = sf::Mouse::getPosition(FRAMEWORK.GetWindow());
+	//mousePosition = sf::Mouse::getPosition(FRAMEWORK.GetWindow());
 
 	return 0.0f;
 }
 
 float InputMgr::GetAxis(Axis axis)
 {
-	return 0.0f;
+	auto findIt = axisInfoMap.find(axis);
+
+	if (findIt == axisInfoMap.end())
+	{
+		return 0.0f;
+	}
+	return findIt->second.value;
 }
 
 bool InputMgr::GetMouseButtonDown(sf::Mouse::Button key)
@@ -156,16 +189,6 @@ bool InputMgr::GetMouseButton(sf::Mouse::Button key)
 {
 	return Contains(heldKeys, sf::Keyboard::KeyCount + key);
 }
-//
-//bool InputMgr::Contains(const std::list<sf::Mouse::Button>& list, sf::Mouse::Button key)
-//{
-//	return std::find(list.begin(), list.end(), key) != list.end();
-//}
-//
-//void InputMgr::Remove(std::list<sf::Mouse::Button>& list, sf::Mouse::Button key)
-//{
-//	list.remove(key);
-//}
 
 sf::Vector2i InputMgr::GetMousePosition()
 {

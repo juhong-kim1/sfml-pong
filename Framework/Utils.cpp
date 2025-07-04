@@ -50,3 +50,88 @@ sf::Vector2f Utils::SetOrigin(sf::Sprite& obj, Origins preset)
 {
     return SetOrigin(obj, preset, obj.getLocalBounds());
 }
+
+float Utils::Clamp(float value, float min, float max)
+{
+    if (value < min)
+    {
+        return min;
+    }
+    if (value > max)
+    {
+        return max;
+    }
+    return value;
+}
+
+float Utils::Clamp01(float value)
+{
+    return Clamp(value, 0.f, 0.1f);
+}
+
+float Utils::Magnitude(const sf::Vector2f& vec)
+{
+    return std::sqrtf(SqrMagnitude(vec));
+}
+
+float Utils::SqrMagnitude(const sf::Vector2f& vec)
+{
+    return vec.x *vec.x + vec.y * vec.y;
+}
+
+sf::Vector2f Utils::GetNormal(const sf::Vector2f& vec)
+{
+    float mag = Utils::Magnitude(vec);
+    if (mag < std::numeric_limits<float>::epsilon())
+    {
+        return { 0 , 0 };
+    }
+    return vec / mag;
+}
+
+void Utils::Normalize(sf::Vector2f& vec)
+{
+    float mag = Utils::Magnitude(vec);
+    if (mag > std::numeric_limits<float>::epsilon())
+    {
+        vec / mag;
+    }
+}
+
+float Utils::Distance(const sf::Vector2f& p1, const sf::Vector2f& p2)
+{
+    return Utils::Magnitude(p1- p2);
+}
+
+float Utils::Lerp(float min, float max, float t, bool clamp)
+{
+    if (clamp)
+    {
+        t = Utils::Clamp01(t);
+    }
+
+    return min + (max - min) * t;
+}
+
+sf::Vector2f Utils::Lerp(const sf::Vector2f& min, const sf::Vector2f& max, float t, bool clamp)
+{
+    if (clamp)
+    {
+        t = Utils::Clamp01(t);
+    }
+    return sf::Vector2f();
+}
+
+sf::Color Utils::Lerp(sf::Color& min, sf::Color& max, float t, bool clamp)
+{
+    if (clamp)
+    {
+        t = Utils::Clamp01(t);
+    }
+    return sf::Color(
+        Lerp (min.r, max.r,t),
+        Lerp(min.g, max.g, t),
+        Lerp(min.b, max.b, t),
+        Lerp(min.a, max.a, t)
+    );
+}

@@ -22,9 +22,6 @@ private:
 	static std::list<int> downKeys;
 	static std::list<int> heldKeys;
 	static std::list<int> upKeys;
-	/*static std::list<sf::Mouse::Button> buttonDownKeys;
-	static std::list<sf::Mouse::Button> buttonUpKeys;
-	static std::list<sf::Mouse::Button> buttonHeldKeys;*/
 
 	static sf::Vector2i mousePosition;
 
@@ -50,14 +47,6 @@ public:
 	static bool GetMouseButtonDown(sf::Mouse::Button key);
 	static bool GetMouseButtonUp(sf::Mouse::Button key);
 	static bool GetMouseButton(sf::Mouse::Button key);
-
-	/*static bool GetMouseButtonDown(sf::Mouse::Button key);
-	static bool GetMouseButtonUp(sf::Mouse::Button key);
-	static bool GetMouseButton(sf::Mouse::Button key);
-
-	static bool Contains(const std::list<sf::Mouse::Button>& list, sf::Mouse::Button key);
-
-	static void Remove(std::list<sf::Mouse::Button>& list, sf::Mouse::Button key);*/
 
 	static sf::Vector2i GetMousePosition();
 
