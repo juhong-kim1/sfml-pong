@@ -8,9 +8,9 @@ Bat::Bat(const std::string& name)
 
 void Bat::Init()
 {
-	shape.setSize({100.f,5.0f});
+	shape.setSize({5.f,100.f});
 	shape.setFillColor(sf::Color::White);
-	SetOrigin(Origins::TC);
+	SetOrigin(Origins::MC);
 }
 
 void Bat::SetPosition(const sf::Vector2f& pos)
@@ -50,20 +50,21 @@ void Bat::Release()
 void Bat::Reset()
 {
 	sf::FloatRect bounds = FRAMEWORK.GetWindowBounds();
-	SetPosition({ bounds.width * 0.5f, bounds.height - 20.f });
+	SetPosition({ bounds.width * 0.1f - 100, bounds.height * 0.5f });
 
 	sf::Vector2f size = shape.getSize();
 
-	minX = bounds.left + size.x * 0.5f;
-	maxX = (bounds.left + bounds.width) - size.x * 0.5f;
+	minY = bounds.top + size.y * 0.5f;
+	maxY = (bounds.top + bounds.height) - size.y * 0.5f;
 }
 
 void Bat::Update(float dt)
 {
+	direction.y = InputMgr::GetAxis(Axis::Vertical);
 	direction.x = InputMgr::GetAxis(Axis::Horizontal);
 	sf::Vector2f pos = GetPosition() + direction * speed * dt;
 
-	pos.x = Utils::Clamp(pos.x, minX, maxX);
+	pos.y = Utils::Clamp(pos.y, minY, maxY);
 
 	SetPosition(pos);
 

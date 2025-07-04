@@ -6,9 +6,10 @@ protected:
 	sf::RectangleShape shape;
 	float speed = 500.f;
 	sf::Vector2f direction;
+	sf::Keyboard::Key key;
 
-	float minX = 0.f;
-	float maxX = 0.f;
+	float minY = 0.f;
+	float maxY = 0.f;
 
 
 public:

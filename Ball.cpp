@@ -47,7 +47,7 @@ void Ball::Init()
 {
 	shape.setRadius(10.0f);
 	shape.setFillColor(sf::Color::Red);
-	SetOrigin(Origins::BC);
+	SetOrigin(Origins::ML);
 }
 
 void Ball::Release()
@@ -57,15 +57,15 @@ void Ball::Release()
 void Ball::Reset()
 {
 	sf::FloatRect bounds = FRAMEWORK.GetWindowBounds();
-	SetPosition({ bounds.width * 0.5f, bounds.height -20.f });
+	SetPosition({ bounds.width * 0.5f, bounds.height * 0.5f });
 
 
 	float radius = shape.getRadius();
-	minX = bounds.left + radius;
-	maxX = (bounds.left + bounds.width) - radius;
+	minX = bounds.left - 200.f;
+	maxX = (bounds.left + bounds.width) - radius * 2;
 
-	minY = bounds.top + radius * 2;
-	maxY = bounds.top + bounds.height + 200.f;
+	minY = bounds.top + radius;
+	maxY = bounds.top + bounds.height - radius;
 
 	direction = { 0.f, 0.f };
 	speed = 0.f;
@@ -77,8 +77,11 @@ void Ball::Update(float dt)
 
 	if (pos.x < minX)
 	{
-		pos.x = minX;
-		direction.x *= -1.f;
+		if (SCENE_MGR.GetCurrentSceneId() == SceneIds::Game)
+		{
+			SceneGame* scene = (SceneGame*)SCENE_MGR.GetCurrentScene();
+			scene->SetGameOver();
+		}
 	}
 	if (pos.x > maxX)
 	{
@@ -92,11 +95,8 @@ void Ball::Update(float dt)
 	}
 	if (pos.y > maxY)
 	{
-		if (SCENE_MGR.GetCurrentSceneId() == SceneIds::Game)
-		{
-			SceneGame* scene = (SceneGame*)SCENE_MGR.GetCurrentScene();
-			scene->SetGameOver();
-		}
+		pos.y = maxY;
+		direction.y *= -1.f;
 	}
 
 	if (bat != nullptr)
@@ -104,8 +104,8 @@ void Ball::Update(float dt)
 		const sf::FloatRect& batBounds = bat->GetGlobalBounds();
 		if (shape.getGlobalBounds().intersects(batBounds))
 		{
-			pos.y = batBounds.top;
-			direction.y *= -1.f;
+			pos.x = batBounds.left + 5;
+			direction.x *= -1.f;
 		}
 	}
 
