@@ -4,6 +4,7 @@
 #include "SceneGame.h"
 
 Ball::Ball(const std::string& name)
+	:GameObject(name)
 {
 }
 
@@ -47,7 +48,7 @@ void Ball::Init()
 {
 	shape.setRadius(10.0f);
 	shape.setFillColor(sf::Color::Red);
-	SetOrigin(Origins::ML);
+	SetOrigin(Origins::MC);
 }
 
 void Ball::Release()
@@ -57,12 +58,13 @@ void Ball::Release()
 void Ball::Reset()
 {
 	sf::FloatRect bounds = FRAMEWORK.GetWindowBounds();
-	SetPosition({ bounds.width * 0.5f, bounds.height * 0.5f });
+	const sf::FloatRect& batBounds = bat1->GetGlobalBounds();
+	SetPosition({ batBounds.left + batBounds.width + 10.f, bounds.height * 0.5f });
 
 
 	float radius = shape.getRadius();
 	minX = bounds.left - 200.f;
-	maxX = (bounds.left + bounds.width) - radius * 2;
+	maxX = (bounds.left + bounds.width) + 200.f;
 
 	minY = bounds.top + radius;
 	maxY = bounds.top + bounds.height - radius;
@@ -85,8 +87,11 @@ void Ball::Update(float dt)
 	}
 	if (pos.x > maxX)
 	{
-		pos.x = maxX;
-		direction.x *= -1.f;
+		if (SCENE_MGR.GetCurrentSceneId() == SceneIds::Game)
+		{
+			SceneGame* scene = (SceneGame*)SCENE_MGR.GetCurrentScene();
+			scene->SetGameOver();
+		}
 	}
 	if (pos.y < minY)
 	{
@@ -104,7 +109,17 @@ void Ball::Update(float dt)
 		const sf::FloatRect& batBounds = bat1->GetGlobalBounds();
 		if (shape.getGlobalBounds().intersects(batBounds))
 		{
-			pos.x = batBounds.left + 5;
+			pos.x = batBounds.left + 15;
+			direction.x *= -1.f;
+		}
+	}
+
+	if (bat2 != nullptr)
+	{
+		const sf::FloatRect& batBounds = bat2->GetGlobalBounds();
+		if (shape.getGlobalBounds().intersects(batBounds))
+		{
+			pos.x = batBounds.left - 15;
 			direction.x *= -1.f;
 		}
 	}

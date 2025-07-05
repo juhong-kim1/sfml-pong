@@ -38,7 +38,7 @@ void SceneGame::Update(float dt)
 
 	if (!ballActive)
 	{
-		ball->SetPosition(bat->GetPosition());
+		//ball->SetPosition(bat->GetPosition());
 
 		if (InputMgr::GetKeyDown(sf::Keyboard::Space))
 		{
