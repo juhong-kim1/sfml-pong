@@ -65,6 +65,7 @@ void Bat::Update(float dt)
 	sf::Vector2f pos = GetPosition() + direction * speed * dt;
 
 	pos.y = Utils::Clamp(pos.y, minY, maxY);
+	pos.x = Utils::Clamp(pos.x, minX, maxX);
 
 	SetPosition(pos);
 

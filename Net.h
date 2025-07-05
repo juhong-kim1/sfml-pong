@@ -5,7 +5,7 @@
 class Net : public GameObject
 {
 protected:
-	sf::RectangleShape net;
+	std::vector<sf::RectangleShape> net;
 
 
 public:

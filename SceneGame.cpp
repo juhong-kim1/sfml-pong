@@ -19,7 +19,8 @@ void SceneGame::Init()
 	bat2 = (Bat*)AddGameObject(new Bat("Bat2"));
 	net = (Net*)AddGameObject(new Net("Net"));
 	ball = (Ball*)AddGameObject(new Ball("Ball"));
-	net = (Net*)AddGameObject(new Net("Net"));
+
+
 	ball->SetBat(bat);
 	
 	Scene::Init();
