@@ -99,9 +99,9 @@ void Ball::Update(float dt)
 		direction.y *= -1.f;
 	}
 
-	if (bat != nullptr)
+	if (bat1 != nullptr)
 	{
-		const sf::FloatRect& batBounds = bat->GetGlobalBounds();
+		const sf::FloatRect& batBounds = bat1->GetGlobalBounds();
 		if (shape.getGlobalBounds().intersects(batBounds))
 		{
 			pos.x = batBounds.left + 5;

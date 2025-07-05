@@ -7,6 +7,7 @@ protected:
 	float speed = 500.f;
 	sf::Vector2f direction;
 	sf::Keyboard::Key key;
+	int playerNumber = 0;
 
 	float minY = 0.f;
 	float maxY = 0.f;
@@ -14,8 +15,9 @@ protected:
 	float maxX = 0.f;
 
 
+
 public:
-	Bat(const std::string& name = "");
+	Bat(const std::string& name = "", int playerNumber = 0);
 	~Bat() = default;
 
 

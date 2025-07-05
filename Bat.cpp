@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "Bat.h"
 
-Bat::Bat(const std::string& name)
-	:GameObject(name)
+Bat::Bat(const std::string& name, int playerNumber)
+	:GameObject(name), playerNumber(playerNumber)
 {
 }
 
@@ -49,25 +49,55 @@ void Bat::Release()
 
 void Bat::Reset()
 {
-	sf::FloatRect bounds = FRAMEWORK.GetWindowBounds();
-	SetPosition({ bounds.width * 0.1f - 100, bounds.height * 0.5f });
+	if (playerNumber == 1)
+	{
+		sf::FloatRect bounds = FRAMEWORK.GetWindowBounds();
+		SetPosition({ bounds.left + 50.f, bounds.height * 0.5f });
 
-	sf::Vector2f size = shape.getSize();
+		sf::Vector2f size = shape.getSize();
 
-	minY = bounds.top + size.y * 0.5f;
-	maxY = (bounds.top + bounds.height) - size.y * 0.5f;
+		minY = bounds.top + size.y * 0.5f;
+		maxY = (bounds.top + bounds.height) - size.y * 0.5f;
+		minX = bounds.left + shape.getSize().x * 0.5f;
+		maxX = bounds.left + bounds.width * 0.5 - 25.f;
+	}
+	if (playerNumber == 2)
+	{
+		sf::FloatRect bounds = FRAMEWORK.GetWindowBounds();
+		SetPosition({ bounds.width - 50.f, bounds.height * 0.5f });
+
+		sf::Vector2f size = shape.getSize();
+
+		minY = bounds.top + size.y * 0.5f;
+		maxY = (bounds.top + bounds.height) - size.y * 0.5f;
+		minX = bounds.width * 0.5 + 25.f;
+		maxX = bounds.width - shape.getSize().x * 0.5f;
+	}
+
 }
 
 void Bat::Update(float dt)
 {
-	direction.y = InputMgr::GetAxis(Axis::Vertical);
-	direction.x = InputMgr::GetAxis(Axis::Horizontal);
+	if (playerNumber == 1)
+	{
+		direction.y = InputMgr::GetAxis(Axis::Vertical1);
+		direction.x = InputMgr::GetAxis(Axis::Horizontal1);
+	}
+
+	if (playerNumber == 2)
+	{
+		direction.y = InputMgr::GetAxis(Axis::Vertical2);
+		direction.x = InputMgr::GetAxis(Axis::Horizontal2);
+	}
+
 	sf::Vector2f pos = GetPosition() + direction * speed * dt;
 
 	pos.y = Utils::Clamp(pos.y, minY, maxY);
 	pos.x = Utils::Clamp(pos.x, minX, maxX);
 
+
 	SetPosition(pos);
+
 
 }
 

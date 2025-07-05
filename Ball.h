@@ -9,7 +9,8 @@ protected:
 	sf::CircleShape shape;
 	sf::Vector2f direction;
 	float speed = 0.f;
-	Bat* bat = nullptr;
+	Bat* bat1 = nullptr;
+	Bat* bat2 = nullptr;
 
 	float minX = 0.f;
 	float maxX = 0.f;
@@ -42,6 +43,10 @@ public:
 
 	void Fire(const sf::Vector2f& d, float s);
 
-	void SetBat(Bat* bat) { this->bat = bat; }
+	void SetBat(Bat* bat1, Bat* bat2)
+	{
+		this->bat1 = bat1;
+		this->bat2 = bat2;
+	}
 };
 

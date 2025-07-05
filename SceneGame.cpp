@@ -15,14 +15,14 @@ SceneGame::~SceneGame()
 
 void SceneGame::Init()
 {
-	bat = (Bat*)AddGameObject(new Bat("Bat1"));
-	bat2 = (Bat*)AddGameObject(new Bat("Bat2"));
+	bat = (Bat*)AddGameObject(new Bat("Bat1", 1));
+	bat2 = (Bat*)AddGameObject(new Bat("Bat2", 2));
 	net = (Net*)AddGameObject(new Net("Net"));
 	ball = (Ball*)AddGameObject(new Ball("Ball"));
 
 
-	ball->SetBat(bat);
-	
+	ball->SetBat(bat, bat2);
+
 	Scene::Init();
 }
 

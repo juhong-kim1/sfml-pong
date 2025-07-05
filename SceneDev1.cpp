@@ -55,8 +55,8 @@ void SceneDev1::Update(float dt)
 
 
 	sf::Vector2f dir;
-	dir.x = InputMgr::GetAxis(Axis::Horizontal);
-	dir.y = InputMgr::GetAxis(Axis::Vertical);
+	dir.x = InputMgr::GetAxis(Axis::Horizontal1);
+	dir.y = InputMgr::GetAxis(Axis::Vertical1);
 
 	//std::cout << InputMgr::GetAxis(Axis::Horizontal) << std::endl;
 
