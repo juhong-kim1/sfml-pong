@@ -82,6 +82,7 @@ void Ball::Update(float dt)
 		if (SCENE_MGR.GetCurrentSceneId() == SceneIds::Game)
 		{
 			SceneGame* scene = (SceneGame*)SCENE_MGR.GetCurrentScene();
+			scene->AddScore(2);
 			scene->SetGameOver();
 		}
 	}
@@ -90,6 +91,7 @@ void Ball::Update(float dt)
 		if (SCENE_MGR.GetCurrentSceneId() == SceneIds::Game)
 		{
 			SceneGame* scene = (SceneGame*)SCENE_MGR.GetCurrentScene();
+			scene->AddScore(1);
 			scene->SetGameOver();
 		}
 	}

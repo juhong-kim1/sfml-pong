@@ -4,6 +4,7 @@
 class Bat;
 class Ball;
 class Net;
+class TextGo;
 
 class SceneGame : public Scene
 {
@@ -15,6 +16,12 @@ protected:
 
 	bool ballActive = false;
 
+	int score1 = 0;
+	int score2 = 0;
+
+	TextGo* scoreText1 = nullptr;
+	TextGo* scoreText2 = nullptr;
+
 public:
 	SceneGame();
 	~SceneGame();
@@ -24,6 +31,8 @@ public:
 	void Update(float dt) override;
 
 	void SetGameOver();
+	void UpdateScore();
+	void AddScore(int playerNumber);
 
 
 
