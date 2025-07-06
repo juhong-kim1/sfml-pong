@@ -36,6 +36,13 @@ void SceneGame::Init()
 	net = (Net*)AddGameObject(new Net("Net"));
 	ball = (Ball*)AddGameObject(new Ball("Ball"));
 
+	restart = (TextGo*)AddGameObject(new TextGo("fonts/DS-DIGIT.ttf"));
+	restart->SetPosition({ 640.f, 300.f });
+	restart->SetOrigin(Origins::MC);
+	restart->SetCharacterSize(50);
+	restart->SetFillColor(sf::Color::White);
+	restart->SetString("Press Enter to restart");
+	restart->SetActive(false);
 
 	ball->SetBat(bat, bat2);
 
@@ -51,6 +58,24 @@ void SceneGame::Enter()
 void SceneGame::Update(float dt)
 {
 	Scene::Update(dt);
+
+	if (isGameOver)
+	{
+		if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
+		{
+			score1 = 0;
+			score2 = 0;
+
+			UpdateScore();
+
+			restart->SetActive(false);
+
+			isGameOver = false;
+			ballActive = false;
+			ball->Reset();
+		}
+
+	}
 
 	if (!ballActive)
 	{
@@ -91,9 +116,8 @@ void SceneGame::AddScore(int playerNumber)
 
 	if (score1 >= 10 || score2 >= 10)
 	{
-		score1 = 0;
-		score2 = 0;
-		UpdateScore();
+		restart->SetActive(true);
+		isGameOver = true;
 	}
 
 	ballActive = false;

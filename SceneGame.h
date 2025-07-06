@@ -15,12 +15,14 @@ protected:
 	Ball* ball = nullptr;
 
 	bool ballActive = false;
+	bool isGameOver = false;
 
 	int score1 = 0;
 	int score2 = 0;
 
 	TextGo* scoreText1 = nullptr;
 	TextGo* scoreText2 = nullptr;
+	TextGo* restart = nullptr;
 
 public:
 	SceneGame();
