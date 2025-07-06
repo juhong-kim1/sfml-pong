@@ -26,8 +26,6 @@ protected:
 
 public:
 
-
-
 	bool Load(const std::string& id)
 	{
 		auto it = resources.find(id);
@@ -48,6 +46,14 @@ public:
 		return true;
 	}
 
+	void Load(const std::vector<std::string>& ids)
+	{
+		for (auto id : ids)
+		{
+			Load(id);
+		}
+	}
+
 	bool Unload(const std::string& id)
 	{
 		auto it = resources.find(id);
@@ -59,14 +65,6 @@ public:
 		delete it->second;
 		resources.erase(it);
 		return true;
-	}
-
-	void Load(const std::vector<std::string>& ids)
-	{
-		for (auto id : ids)
-		{
-			Load(id);
-		}
 	}
 
 	void Unload(const std::vector<std::string>& ids)
