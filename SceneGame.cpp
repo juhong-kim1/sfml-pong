@@ -77,16 +77,19 @@ void SceneGame::Update(float dt)
 
 	}
 
-	if (!ballActive)
+	if (!ballActive && isGameOver == false)
 	{
 		//ball->SetPosition(bat->GetPosition());
 
 		if (InputMgr::GetKeyDown(sf::Keyboard::Space))
 		{
 			ballActive = true;
-			sf::Vector2f dir(-1.f, 1.f);
+
+			float dirY = Utils::RandomRange(Utils::RandomRange(-0.5f, -0.3f), Utils::RandomRange(0.3f, 0.5f));
+
+			sf::Vector2f dir(-1.f, dirY);
 			Utils::Normalize(dir);
-			ball->Fire(dir, 500.f);
+			ball->Fire(dir, 1000.f);
 		}
 	}
 }

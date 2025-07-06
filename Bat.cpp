@@ -81,13 +81,13 @@ void Bat::Update(float dt)
 	if (playerNumber == 1)
 	{
 		direction.y = InputMgr::GetAxis(Axis::Vertical1);
-		direction.x = InputMgr::GetAxis(Axis::Horizontal1);
+		//direction.x = InputMgr::GetAxis(Axis::Horizontal1);
 	}
 
 	if (playerNumber == 2)
 	{
 		direction.y = InputMgr::GetAxis(Axis::Vertical2);
-		direction.x = InputMgr::GetAxis(Axis::Horizontal2);
+		//direction.x = InputMgr::GetAxis(Axis::Horizontal2);
 	}
 
 	sf::Vector2f pos = GetPosition() + direction * speed * dt;

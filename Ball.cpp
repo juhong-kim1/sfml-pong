@@ -111,7 +111,7 @@ void Ball::Update(float dt)
 		const sf::FloatRect& batBounds = bat1->GetGlobalBounds();
 		if (shape.getGlobalBounds().intersects(batBounds))
 		{
-			pos.x = batBounds.left + 15;
+			pos.x = batBounds.left + batBounds.width + shape.getRadius();
 			direction.x *= -1.f;
 		}
 	}
@@ -121,7 +121,7 @@ void Ball::Update(float dt)
 		const sf::FloatRect& batBounds = bat2->GetGlobalBounds();
 		if (shape.getGlobalBounds().intersects(batBounds))
 		{
-			pos.x = batBounds.left - 15;
+			pos.x = batBounds.left - shape.getRadius();
 			direction.x *= -1.f;
 		}
 	}

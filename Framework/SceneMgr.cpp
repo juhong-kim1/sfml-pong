@@ -3,27 +3,29 @@
 #include "SceneDev1.h"
 #include "SceneDev2.h"
 #include "SceneGame.h"
+#include <unordered_map>
 
 
 void SceneMgr::Init()
 {
-	scenes.push_back(new SceneGame());
-	scenes.push_back(new SceneDev2());
+	scenes[SceneIds::Game] = new SceneGame();
+	scenes[SceneIds::Dev2] = new SceneDev2();
 
 	for (auto scene : scenes)
 	{
-		scene->Init();
+		scene.second->Init();
 	}
 
 	currentScene = startScene;
-	scenes[(int)currentScene]->Enter();
+	scenes.find(currentScene)->second->Enter();
 }
 
 void SceneMgr::Release()
 {
-	for (auto scene : scenes)
+	for (auto pair : scenes)
 	{
-		if (scene->Id == currentScene)
+		Scene* scene = pair.second;
+		if (pair.first == currentScene)
 		{
 			scene->Exit();
 		}
@@ -31,6 +33,12 @@ void SceneMgr::Release()
 		delete scene;
 	}
 	scenes.clear();
+}
+
+Scene* SceneMgr::GetCurrentScene()
+{
+	auto scene = scenes.find(currentScene);
+	return scene->second;
 }
 
 void SceneMgr::ChangeScene(SceneIds id)
@@ -42,16 +50,18 @@ void SceneMgr::Update(float dt)
 {
 	if (nextScene != SceneIds::None)
 	{
-		scenes[(int)currentScene]->Exit();
+		scenes.find(currentScene)->second->Exit();
+
 		currentScene = nextScene;
 		nextScene = SceneIds::None;
-		scenes[(int)currentScene]->Enter();
+
+		scenes.find(currentScene)->second->Enter();
 	}
 
-	scenes[(int)currentScene]->Update(dt);
+	scenes.find(currentScene)->second->Update(dt);
 }
 
 void SceneMgr::Draw(sf::RenderWindow& window)
 {
-	scenes[(int)currentScene]->Draw(window);
+	scenes.find(currentScene)->second->Draw(window);
 }
